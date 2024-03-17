@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable, forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Songs } from '../models/songs';
-import { typeGenre } from '../models/genre';
 import { Artist } from '../models/artist';
+import { typeGenre } from '../models/genre';
+import { Songs } from '../models/songs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-
   private songsCollection: AngularFirestoreCollection<Songs>;
   private genres: typeGenre[] = [];
+  private artistsCollection: AngularFirestoreCollection<Artist>;
 
   constructor(private firestore: AngularFirestore) {
     this.songsCollection = this.firestore.collection<Songs>('songs');
@@ -25,6 +25,7 @@ export class UsersService {
       { id: 5, description: 'Trash Metal' },
       { id: 6, description: 'Clasica' }
     ];
+    this.artistsCollection = this.firestore.collection<Artist>('artists');
   }
 
   getSongs(): Observable<Songs[]> {
@@ -52,12 +53,12 @@ export class UsersService {
   newSong(): Songs {
     return {
       id: '', // Se asignará un ID vacío que será generado por Firestore
-      album: "",
-      artistId: "", // Cambiar de artist a artistId para almacenar el ID del artista
+      album: '',
+      artistId: '', // Cambiar de artist a artistId para almacenar el ID del artista
       genre: 0,
-      title: "",
+      title: '',
       releaseYear: 0,
-      description: ""
+      description: ''
     };
   }
 
@@ -69,7 +70,10 @@ export class UsersService {
             id: artist.id,
             name: artist.name,
             country: artist.country,
-            genre: artist.genre
+            genre: artist.genre,
+            biography: artist.biography,
+            website: artist.website,
+            imageUrl: artist.imageUrl
           };
         } else {
           return undefined;
@@ -94,5 +98,14 @@ export class UsersService {
         return forkJoin(songObservables);
       })
     );
+  }
+
+  insertArtist(artist: Artist): void {
+    this.artistsCollection.add(artist);
+  }
+
+  // Método para obtener la lista de artistas
+  getArtists(): Observable<Artist[]> {
+    return this.artistsCollection.valueChanges({ idField: 'id' });
   }
 }

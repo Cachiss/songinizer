@@ -1,1 +1,54 @@
-<p>artist works!</p>
+<!-- artist.component.html -->
+<form (ngSubmit)="addArtist()" [ngClass]="{ 'loading': addingArtist }">
+    <div class="form-group">
+      <label for="name">Nombre:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="newArtist.name" required>
+    </div>
+    <div class="form-group">
+      <label for="country">País:</label>
+      <input type="text" id="country" name="country" [(ngModel)]="newArtist.country" required>
+    </div>
+    <div class="form-group">
+      <label for="genre">Género:</label>
+      <select id="genre" name="genre" [(ngModel)]="newArtist.genre" required>
+        <option *ngFor="let genre of genres" [value]="genre.id">{{ genre.description }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="biography">Biografía:</label>
+      <textarea id="biography" name="biography" [(ngModel)]="newArtist.biography" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="website">Sitio web:</label>
+      <input type="url" id="website" name="website" [(ngModel)]="newArtist.website">
+    </div>
+    <div class="form-group">
+      <label for="imageUrl">URL de la imagen:</label>
+      <input type="url" id="imageUrl" name="imageUrl" [(ngModel)]="newArtist.imageUrl">
+    </div>
+    <button type="submit" [disabled]="addingArtist">Agregar Artista</button>
+    <div *ngIf="addingArtist" class="loading-spinner">Cargando...</div>
+  </form>
+  
+<!-- Mostrar la lista de artistas -->
+<div *ngIf="artists.length > 0">
+    <h1>Lista de Artistas</h1>
+    <ul>
+      <li *ngFor="let artist of artists">
+        <h3>{{ artist.name }}</h3>
+        <p><strong>País:</strong> {{ artist.country }}</p>
+        <p><strong>Url:</strong> {{ artist.biography }}</p>
+        <p><strong>Url:</strong> {{ artist.id}}</p>
+        <p><strong>Url:</strong> {{ artist.name }}</p>
+        <p><strong>Url:</strong> {{ artist.imageUrl }}</p>
+        
+        <p><strong>Género:</strong> {{ getGenreDescription(artist.genre) }}</p>
+        <!-- Agregar más detalles del artista según sea necesario -->
+      </li>
+    </ul>
+  </div>
+  
+  <!-- Mostrar la imagen subida -->
+  <div *ngIf="newArtist.imageUrl">
+    <img [src]="newArtist.imageUrl" alt="Imagen del artista">
+  </div>
