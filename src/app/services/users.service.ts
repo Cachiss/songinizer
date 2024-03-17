@@ -58,7 +58,8 @@ export class UsersService {
       genre: 0,
       title: '',
       releaseYear: 0,
-      description: ''
+      description: '',
+      imageBase64: '' 
     };
   }
 
@@ -73,8 +74,8 @@ export class UsersService {
             genre: artist.genre,
             biography: artist.biography,
             website: artist.website,
-            imageUrl: artist.imageUrl
-          };
+            imageBase64: artist.imageBase64 // Cambiar imageUrl a imageBase64
+          } as Artist; // Agregar 'as Artist' para convertirlo en tipo Artist
         } else {
           return undefined;
         }
@@ -100,8 +101,26 @@ export class UsersService {
     );
   }
 
-  insertArtist(artist: Artist): void {
-    this.artistsCollection.add(artist);
+  insertArtist(artist: Artist, imageFile: File): void {
+    // Verifica si se proporcionó una imagen
+    if (imageFile) {
+      // Lee la imagen como una cadena Base64
+      const reader = new FileReader();
+      reader.readAsDataURL(imageFile);
+      reader.onload = () => {
+        // Cuando la imagen se ha leído correctamente, agrega la cadena Base64 al objeto del artista
+        artist.imageBase64 = reader.result as string;
+
+        // Agrega el artista con la imagen a la base de datos
+        this.artistsCollection.add(artist);
+      };
+      reader.onerror = (error) => {
+        console.error('Error al leer la imagen:', error);
+      };
+    } else {
+      // Si no se proporcionó una imagen, simplemente agrega el artista a la base de datos sin imagen
+      this.artistsCollection.add(artist);
+    }
   }
 
   // Método para obtener la lista de artistas
