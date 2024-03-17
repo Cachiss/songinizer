@@ -1,0 +1,55 @@
+<div class="container mt-4 text-center">
+    <div class="card" style="background-color: #1DB954; color: rgb(0, 0, 0);">
+      <div class="card-body">
+        <h3 class="card-title mb-4">Sube tus canciones</h3>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="songTitle" style="color: white; font-weight: bold;">Nombre de la Canción:</label>
+              <input type="text" class="form-control" id="songTitle" [(ngModel)]="songs.title" style="background-color: #191414; color: white;">
+            </div>
+            <div class="form-group">
+              <label for="albumName" style="color: white; font-weight: bold;">Nombre del Álbum:</label>
+              <input type="text" class="form-control" id="albumName" [(ngModel)]="songs.album" style="background-color: #191414; color: white;">
+            </div>
+            <div class="form-group">
+              <label for="artistName" style="color: white; font-weight: bold;">Artista:</label>
+              <input type="text" class="form-control" id="artistName" [(ngModel)]="songs.artistId" style="background-color: #191414; color: white;">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="songDescription" style="color: white; font-weight: bold;">Descripción:</label>
+              <input type="text" class="form-control" id="songDescription" [(ngModel)]="songs.description" style="background-color: #191414; color: white;">
+            </div>
+           
+            <div class="form-group">
+                <label for="releaseYear" class="text-white font-weight-bold">Fecha de lanzamiento:</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="releaseYear"
+                  [(ngModel)]="songs.releaseYear"
+                  style="background-color: #191414; color: white;"
+                />
+              </div>
+                
+            
+            <div class="form-group">
+              <label for="genreSelect" style="color: white; font-weight: bold;">Genero:</label>
+              <select id="genreSelect" [(ngModel)]="songs.genre" class="form-control" style="background-color: #191414; color: white;">
+                <option *ngFor="let genre of genres" [value]="genre.id">
+                  {{ genre.description }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p></p>
+        <div class="form-group">
+          <button type="button" class="btn btn-success" (click)="insertSong()">Insertar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
