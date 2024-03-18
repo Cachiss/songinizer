@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ArtistComponent } from './pages/artist/artist.component'; // Importa el componente ArtistComponent
-import { SongsComponent } from './pages/songs/songs.component';
 // Importa los módulos de ngx-bootstrap
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,14 +12,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
-import { ListSongsComponent } from './pages/list-songs/list-songs.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from './components/header/header.component';
+import { CardSongComponent } from './components/card-song/card-song.component';
+import { Top50MexComponent } from './components/top-50-mex/top-50-mex.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SongsComponent,
-    ListSongsComponent,
-    ArtistComponent // Agrega el componente ArtistComponent a las declaraciones
+    ArtistComponent,
+    HeaderComponent,
+    CardSongComponent,
+    Top50MexComponent // Agrega el componente ArtistComponent a las declaraciones
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,8 @@ import { ListSongsComponent } from './pages/list-songs/list-songs.component';
     BrowserAnimationsModule, // Necesario para las animaciones del calendario
     BsDatepickerModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig), // Inicializa Firebase con la configuración
-    AngularFireDatabaseModule // Agrega el módulo de Firebase Database
+    AngularFireDatabaseModule, // Agrega el módulo de Firebase Database
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

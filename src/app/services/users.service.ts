@@ -50,18 +50,7 @@ export class UsersService {
     songDoc.delete();
   }
 
-  newSong(): Song {
-    return {
-      id: '', // Se asignará un ID vacío que será generado por Firestore
-      album: '',
-      artistId: '', // Cambiar de artist a artistId para almacenar el ID del artista
-      genre: 0,
-      title: '',
-      releaseYear: 0,
-      description: '',
-      imageBase64: '' 
-    };
-  }
+
 
   getArtistById(artistId: string): Observable<Artist | undefined> {
     return this.firestore.collection('artists').doc(artistId).valueChanges().pipe(
@@ -87,7 +76,7 @@ export class UsersService {
     return this.getSongs().pipe(
       switchMap((songs: Song[]) => {
         const songObservables: Observable<Song>[] = songs.map(song => {
-          return this.getArtistById(song.artistId).pipe(
+          return this.getArtistById(song.id).pipe(
             map(artist => {
               return {
                 ...song,
