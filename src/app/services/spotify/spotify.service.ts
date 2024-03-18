@@ -42,6 +42,19 @@ export class SpotifyService {
     )
   }
 
+  getTopTracksGlobal(){
+    const url = "https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF"
+    return this.getAccessToken().pipe(
+      switchMap((data) => {
+        const token = data.access_token;
+        const headers = new HttpHeaders({
+          Authorization: 'Bearer ' + token
+        });
+        return this.http.get(url, { headers });
+      })
+    )
+  }
+
 
   
 }
