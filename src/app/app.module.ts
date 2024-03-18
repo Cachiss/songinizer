@@ -14,7 +14,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
-import { CardSongComponent } from './components/card-song/card-song.component';
 import { Top50MexComponent } from './components/top-50-mex/top-50-mex.component';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { Top50MexComponent } from './components/top-50-mex/top-50-mex.component'
     AppComponent,
     ArtistComponent,
     HeaderComponent,
-    CardSongComponent,
     Top50MexComponent // Agrega el componente ArtistComponent a las declaraciones
   ],
   imports: [
