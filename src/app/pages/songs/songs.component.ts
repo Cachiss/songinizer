@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { typeGenre } from '../../models/genre';
-import { Songs } from '../../models/songs';
+import { Song } from '../../models/songs';
 import { UsersService } from '../../services/users.service';
 
 @Component({
@@ -10,9 +10,9 @@ import { UsersService } from '../../services/users.service';
 })
 export class SongsComponent implements OnInit {
 
-   songs: Songs = this.userservice.newSong(); // Inicializar songs con un nuevo objeto de canción
+   songs: Song = this.userservice.newSong(); // Inicializar songs con un nuevo objeto de canción
    genres: typeGenre[] = [];
-   savedSongs: Songs[] = [];
+   savedSongs: Song[] = [];
    imageFile: File | null = null; // Variable para almacenar el archivo de imagen seleccionado
    
    constructor(private userservice: UsersService) {}

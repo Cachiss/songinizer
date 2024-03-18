@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Songs } from '../../models/songs';
+import { Song } from '../../models/songs';
 import { UsersService } from '../../services/users.service';
 
 @Component({
@@ -10,18 +10,18 @@ import { UsersService } from '../../services/users.service';
 })
 export class ListSongsComponent implements OnInit {
 
-  songs: Songs[] = [];
-  editingSong: Songs | null = null; // Objeto para editar canción
+  songs: Song[] = [];
+  editingSong: Song | null = null; // Objeto para editar canción
 
   constructor(private userService: UsersService) {}
 
   ngOnInit(): void {
-    this.userService.getSongs().subscribe((songs: Songs[]) => {
+    this.userService.getSongs().subscribe((songs: Song[]) => {
       this.songs = songs;
     });
   }
 
-  editSong(song: Songs) {
+  editSong(song: Song) {
     this.editingSong = { ...song }; // Copia la canción seleccionada para editar
   }
   

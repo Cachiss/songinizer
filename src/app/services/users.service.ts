@@ -4,18 +4,18 @@ import { Observable, forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Artist } from '../models/artist';
 import { typeGenre } from '../models/genre';
-import { Songs } from '../models/songs';
+import { Song } from '../models/songs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  private songsCollection: AngularFirestoreCollection<Songs>;
+  private songsCollection: AngularFirestoreCollection<Song>;
   private genres: typeGenre[] = [];
   private artistsCollection: AngularFirestoreCollection<Artist>;
 
   constructor(private firestore: AngularFirestore) {
-    this.songsCollection = this.firestore.collection<Songs>('songs');
+    this.songsCollection = this.firestore.collection<Song>('songs');
     this.genres = [
       { id: 0, description: 'sin definir' }, 
       { id: 1, description: 'Rock' },
@@ -28,7 +28,7 @@ export class UsersService {
     this.artistsCollection = this.firestore.collection<Artist>('artists');
   }
 
-  getSongs(): Observable<Songs[]> {
+  getSongs(): Observable<Song[]> {
     return this.songsCollection.valueChanges({ idField: 'id' });
   }
 
@@ -36,11 +36,11 @@ export class UsersService {
     return this.genres;
   }
 
-  insertSong(song: Songs): void {
+  insertSong(song: Song): void {
     this.songsCollection.add(song);
   }
 
-  updateSong(song: Songs): void {
+  updateSong(song: Song): void {
     const songDoc = this.songsCollection.doc(song.id);
     songDoc.update(song);
   }
@@ -50,7 +50,7 @@ export class UsersService {
     songDoc.delete();
   }
 
-  newSong(): Songs {
+  newSong(): Song {
     return {
       id: '', // Se asignará un ID vacío que será generado por Firestore
       album: '',
@@ -83,10 +83,10 @@ export class UsersService {
     );
   }
 
-  getSongsWithArtists(): Observable<Songs[]> {
+  getSongsWithArtists(): Observable<Song[]> {
     return this.getSongs().pipe(
-      switchMap((songs: Songs[]) => {
-        const songObservables: Observable<Songs>[] = songs.map(song => {
+      switchMap((songs: Song[]) => {
+        const songObservables: Observable<Song>[] = songs.map(song => {
           return this.getArtistById(song.artistId).pipe(
             map(artist => {
               return {
