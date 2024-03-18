@@ -6,6 +6,7 @@ export class Songs {
         public album: string,
         public releaseYear: number,
         public description: string,
-        public genre: number
+        public genre: number,
+        public imageBase64: string // Imagen en base64 de la canción
     ) {}
 }
