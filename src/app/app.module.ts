@@ -15,13 +15,17 @@ import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { Top50MexComponent } from './components/top-50-mex/top-50-mex.component';
+import { Top50GlobalComponent } from './components/top-50-global/top-50-global.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ArtistComponent,
     HeaderComponent,
-    Top50MexComponent // Agrega el componente ArtistComponent a las declaraciones
+    Top50MexComponent,
+    Top50GlobalComponent,
+    HomeComponent // Agrega el componente ArtistComponent a las declaraciones
   ],
   imports: [
     BrowserModule,
