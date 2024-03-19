@@ -34,23 +34,35 @@ export class UsersService {
     favoritesSongs.push(song.id);
     localStorage.setItem('favorites', favoritesSongs.join(','));
   }
+  private removeFavoriteLocalStorage(songId: string): void {    
+    let favoritesSongsRaw: any = localStorage.getItem('favorites');
+    let favoritesSongs: string[] = favoritesSongsRaw.split(',');
+
+    favoritesSongs = favoritesSongs.filter(song => song !== songId);
+    localStorage.setItem('favorites', favoritesSongs.join(','));
+  }
 
   isFavoriteLocalStorage(songId: string): boolean {
     let favoritesSongsRaw: any = localStorage.getItem('favorites');
     let favoritesSongs: string[] = favoritesSongsRaw ? favoritesSongsRaw.split(',') : [];
     return favoritesSongs.includes(songId);
   }
-  getSongs(): Observable<Song[]> {
-    return this.songsCollection.valueChanges({ idField: 'id' });
+  getSongs(id_user: string): Observable<Song[]> {
+    return this.songsCollection.valueChanges({ idField: 'id' }).pipe(
+      map((songs: Song[]) => {
+        return songs.filter(song => song.id_user === id_user);
+      })
+    );
   }
 
   getGenres(): typeGenre[] {
     return this.genres;
   }
 
-  insertSong(song: Song): void {
+  insertSong(song: Song): Promise<any> {
     this.addFavoriteLocalStorage(song);
-    this.songsCollection.add({
+    //this to set a custom id 
+    return this.songsCollection.doc(song.id).set({
       ...song,
       id_user: localStorage.getItem('token')!
     });
@@ -61,9 +73,10 @@ export class UsersService {
     songDoc.update(song);
   }
 
-  deleteSong(songId: string): void {
+  deleteSong(songId: string): Promise<void> {
+    this.removeFavoriteLocalStorage(songId);
     const songDoc = this.songsCollection.doc(songId);
-    songDoc.delete();
+    return songDoc.delete();
   }
 
 
@@ -88,7 +101,7 @@ export class UsersService {
     );
   }
 
-  getSongsWithArtists(): Observable<Song[]> {
+ /*getSongsWithArtists(): Observable<Song[]> {
     return this.getSongs().pipe(
       switchMap((songs: Song[]) => {
         const songObservables: Observable<Song>[] = songs.map(song => {
@@ -104,7 +117,7 @@ export class UsersService {
         return forkJoin(songObservables);
       })
     );
-  }
+  }*/
 
   insertArtist(artist: Artist, imageFile: File): void {
     // Verifica si se proporcionó una imagen

@@ -32,13 +32,11 @@ export class Top50MexComponent implements OnInit {
     );
   }
 
-  addSong(song: Song){
-    song.favorite = true;
-    this.userService.insertSong(song);
+  async addSong(song: Song){
+    await this.userService.insertSong(song);
   }
   
-  deleteSong(song: Song){
-    song.favorite = false;
-    this.userService.deleteSong(song.id);
+  async deleteSong(song: Song){
+    await this.userService.deleteSong(song.id);
   }
 }

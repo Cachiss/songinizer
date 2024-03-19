@@ -33,14 +33,14 @@ export class Top50GlobalComponent {
     );
   }
 
-  addSong(song: Song){
+  async addSong(song: Song){
     song.favorite = true;
-    this.userService.insertSong(song);
+    await this.userService.insertSong(song);
   }
 
-  deleteSong(song: Song){
+  async deleteSong(song: Song){
     song.favorite = false;
-    this.userService.deleteSong(song.id);
+    await this.userService.deleteSong(song.id);
   }
 
 }

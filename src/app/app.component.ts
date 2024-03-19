@@ -9,7 +9,6 @@ export class AppComponent implements OnInit{
   title = 'songinizer';
 
   ngOnInit(): void {
-    console.log(uuidv4())
     if(!localStorage.getItem('token')){
       localStorage.setItem('token', uuidv4());
     }
