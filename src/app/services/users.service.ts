@@ -81,7 +81,7 @@ export class UsersService {
 
 
 
-  getArtistById(artistId: string): Observable<Artist | undefined> {
+/*  getArtistById(artistId: string): Observable<Artist | undefined> {
     return this.firestore.collection('artists').doc(artistId).valueChanges().pipe(
       map((artist: any) => {
         if (artist) {
@@ -99,7 +99,7 @@ export class UsersService {
         }
       })
     );
-  }
+  }*/
 
  /*getSongsWithArtists(): Observable<Song[]> {
     return this.getSongs().pipe(
@@ -119,26 +119,8 @@ export class UsersService {
     );
   }*/
 
-  insertArtist(artist: Artist, imageFile: File): void {
-    // Verifica si se proporcionó una imagen
-    if (imageFile) {
-      // Lee la imagen como una cadena Base64
-      const reader = new FileReader();
-      reader.readAsDataURL(imageFile);
-      reader.onload = () => {
-        // Cuando la imagen se ha leído correctamente, agrega la cadena Base64 al objeto del artista
-        artist.imageBase64 = reader.result as string;
-
-        // Agrega el artista con la imagen a la base de datos
-        this.artistsCollection.add(artist);
-      };
-      reader.onerror = (error) => {
-        console.error('Error al leer la imagen:', error);
-      };
-    } else {
-      // Si no se proporcionó una imagen, simplemente agrega el artista a la base de datos sin imagen
-      this.artistsCollection.add(artist);
-    }
+  insertArtist(artist: Artist): Promise<any> {
+    return this.artistsCollection.doc(artist.id).set(artist);
   }
 
   // Método para obtener la lista de artistas

@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ArtistComponent } from './pages/artist/artist.component'; // Importa el componente ArtistComponent
 // Importa los módulos de ngx-bootstrap
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,17 +18,20 @@ import { Top50GlobalComponent } from './components/top-50-global/top-50-global.c
 import { HomeComponent } from './pages/home/home.component';
 import { MySongsComponent } from './pages/my-songs/my-songs.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { ArtistsComponent } from './pages/artists/artists.component';
+import { ResultSearchComponent } from './components/result-search/result-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ArtistComponent,
     HeaderComponent,
     Top50MexComponent,
     Top50GlobalComponent,
     HomeComponent,
     MySongsComponent,
-    AboutUsComponent // Agrega el componente ArtistComponent a las declaraciones
+    AboutUsComponent,
+    ArtistsComponent,
+    ResultSearchComponent // Agrega el componente ArtistComponent a las declaraciones
   ],
   imports: [
     BrowserModule,
