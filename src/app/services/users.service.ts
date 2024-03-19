@@ -28,6 +28,18 @@ export class UsersService {
     this.artistsCollection = this.firestore.collection<Artist>('artists');
   }
 
+  private addFavoriteLocalStorage(song: Song): void {
+    let favoritesSongsRaw: any = localStorage.getItem('favorites');
+    let favoritesSongs: string[] = favoritesSongsRaw ? favoritesSongsRaw.split(',') : [];
+    favoritesSongs.push(song.id);
+    localStorage.setItem('favorites', favoritesSongs.join(','));
+  }
+
+  isFavoriteLocalStorage(songId: string): boolean {
+    let favoritesSongsRaw: any = localStorage.getItem('favorites');
+    let favoritesSongs: string[] = favoritesSongsRaw ? favoritesSongsRaw.split(',') : [];
+    return favoritesSongs.includes(songId);
+  }
   getSongs(): Observable<Song[]> {
     return this.songsCollection.valueChanges({ idField: 'id' });
   }
@@ -37,7 +49,11 @@ export class UsersService {
   }
 
   insertSong(song: Song): void {
-    this.songsCollection.add(song);
+    this.addFavoriteLocalStorage(song);
+    this.songsCollection.add({
+      ...song,
+      id_user: localStorage.getItem('token')!
+    });
   }
 
   updateSong(song: Song): void {

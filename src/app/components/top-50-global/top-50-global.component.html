@@ -12,8 +12,13 @@
                 <p class="italic text-neutral-500">{{song.artists}}</p>
             </div>
             <div class="flex justify-end">
-                <i class="bi bi-heart cursor-pointer"></i>
-            </div>
+                <span *ngIf="song.favorite; then favorite; else nofavorite "></span>
+                <ng-template #nofavorite>
+                    <i class="bi bi-heart cursor-pointer" (click)="addSong(song)"></i>
+                </ng-template>
+                <ng-template #favorite>
+                    <i class="bi bi-heart-fill cursor-pointer"></i>
+                </ng-template>            </div>
         </div>
     </div>
 </div>

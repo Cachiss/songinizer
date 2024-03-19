@@ -19,9 +19,10 @@ export class Top50MexComponent implements OnInit {
     this.spotifyService.getTopTracksMexico().subscribe((data: any) => {
       this.songs = data.tracks.items.map((song: any) => {        
         return {
-          id: uuidv4(),
+          id: song.track.id,
           name: song.track.name,
           artists: song.track.artists.map((artist:any) => artist.name).join(', '),
+          favorite: this.userService.isFavoriteLocalStorage(song.track.id),
           releaseYear: song.track.album.release_date,
           album: song.track.album.name,
           image: song.track.album.images[1].url || song.rack.album.images[0].url
