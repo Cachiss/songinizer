@@ -33,6 +33,7 @@ export class Top50MexComponent implements OnInit {
   }
 
   async addSong(song: Song){
+    song.favorite = true;
     await this.userService.insertSong(song);
   }
   

@@ -18,6 +18,7 @@ import { Top50MexComponent } from './components/top-50-mex/top-50-mex.component'
 import { Top50GlobalComponent } from './components/top-50-global/top-50-global.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MySongsComponent } from './pages/my-songs/my-songs.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MySongsComponent } from './pages/my-songs/my-songs.component';
     Top50MexComponent,
     Top50GlobalComponent,
     HomeComponent,
-    MySongsComponent // Agrega el componente ArtistComponent a las declaraciones
+    MySongsComponent,
+    AboutUsComponent // Agrega el componente ArtistComponent a las declaraciones
   ],
   imports: [
     BrowserModule,
