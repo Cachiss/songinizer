@@ -79,6 +79,12 @@ export class UsersService {
     return songDoc.delete();
   }
 
+  isArtistLocalStorage(artistId: string): boolean {
+    let favoritesArtistsRaw: any = localStorage.getItem('favoritesArtists');
+    let favoritesArtists: string[] = favoritesArtistsRaw ? favoritesArtistsRaw.split(',') : [];
+    return favoritesArtists.includes(artistId);
+  
+  }
 
 
 /*  getArtistById(artistId: string): Observable<Artist | undefined> {
@@ -118,13 +124,42 @@ export class UsersService {
       })
     );
   }*/
+  private insertArtistLocalStorage(artist: Artist): void {
+    let favoritesArtistsRaw: any = localStorage.getItem('favoritesArtists');
+    let favoritesArtists: string[] = favoritesArtistsRaw ? favoritesArtistsRaw.split(',') : [];
+    favoritesArtists.push(artist.id);
+    localStorage.setItem('favoritesArtists', favoritesArtists.join(','));
+  }
 
   insertArtist(artist: Artist): Promise<any> {
-    return this.artistsCollection.doc(artist.id).set(artist);
+    this.insertArtistLocalStorage(artist);
+    return this.artistsCollection.doc(artist.id).set({
+      ...artist,
+      id_user: localStorage.getItem('token')!
+    });
   }
 
   // Método para obtener la lista de artistas
   getArtists(): Observable<Artist[]> {
-    return this.artistsCollection.valueChanges({ idField: 'id' });
+    const id_user = localStorage.getItem('token');
+    return this.artistsCollection.valueChanges({ idField: 'id' }).pipe(
+      map((artists: Artist[]) => {
+        return artists.filter(artist => artist.id_user === id_user);
+      })
+    );
+  }
+
+  deleteArtistLocalStorage(artistId: string): void {
+    let favoritesArtistsRaw: any = localStorage.getItem('favoritesArtists');
+    let favoritesArtists: string[] = favoritesArtistsRaw.split(',');
+
+    favoritesArtists = favoritesArtists.filter(artist => artist !== artistId);
+    localStorage.setItem('favoritesArtists', favoritesArtists.join(','));
+  
+  }
+  deleteArtist(artistId: string): Promise<void> {
+    this.deleteArtistLocalStorage(artistId);
+    const artistDoc = this.artistsCollection.doc(artistId);
+    return artistDoc.delete();
   }
 }

@@ -1,0 +1,57 @@
+    <section class="flex justify-center lg:block mt-2">
+        <h3 class="text-xl">Buscar canciones o artistas</h3>
+        <form (submit)="search()" class="h-11">
+            <input type="search" name="searchArtist" id="searchArtist" placeholder="Buscar" class="bg-slate-100 p-2 rounded lg:w-2/4 h-full mt-2" [(ngModel)]="searchValue">
+            <select name="option" id="option" class="h-full p-2" [(ngModel)]="optionValue" >
+                <option value="artist">Artista</option>
+                <option value="track">Canción</option>
+            </select>
+            <button class="bg-black text-white text-xl p-2 w-14 h-full" type="submit">
+                <i class="bi bi-search"></i>
+            </button>
+        </form> 
+
+        <div *ngIf="isSearch;" class="z-50">
+            <div *ngIf="optionValue==='artist'" class="block">
+                <div class="grid lg:grid-cols-3 gap-5 mt-4">
+                    <div *ngFor="let artist of artists; let number=index;" class="flex flex-col justify-center-center gap-3">
+                        <div class="max-w-[55%] flex items-center">
+                            <img [src]="artist.image" alt="image">
+                        </div>
+                        <div class="w-[55%] flex justify-between p-1">
+                            <div>
+                                <p class="font-bold">{{artist.name}}</p>
+                                <p class="italic text-neutral-500">{{artist.genre}}</p>
+                            </div>
+                            
+                            <div class="flex justify-end items-center">
+                                <i class="bi bi-heart cursor-pointer" (click)="addArtist(artist) "*ngIf="!isArtistFavorite(artist.id)" ></i>
+                                <i class="bi bi-heart-fill cursor-pointer" (click)="deleteArtist(artist) "*ngIf="isArtistFavorite(artist.id)" ></i>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+            </div>
+            <div class="grid lg:grid-cols-3 gap-5 mt-4" *ngIf="optionValue==='track'">
+                <div *ngFor="let song of songs; let number=index;" class="flex items-center gap-3">
+                    <p class="text-4xl text-left w-[10%]">{{number+1}}</p>
+                    <div class="max-w-[33%] flex items-center">
+                        <img [src]="song.image" alt="image">
+                    </div>
+                    <div class="w-1/2">
+                        <p class="font-bold">{{song.name}}</p>
+                        <p class="italic text-neutral-500">{{song.artists}}</p>
+                    </div>
+                    <div class="flex justify-end">
+                        <span *ngIf="isSongFavorite(song.id); then favorite; else nofavorite "></span>
+                        <ng-template #nofavorite>
+                            <i class="bi bi-heart cursor-pointer" (click)="addSong(song)"></i>
+                        </ng-template>
+                        <ng-template #favorite>
+                            <i class="bi bi-heart-fill cursor-pointer" (click)="deleteSong(song)"></i>
+                        </ng-template>            </div>
+                </div>
+            </div>
+        </div>
+    </section>

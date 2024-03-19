@@ -10,6 +10,7 @@ import { Song } from '../../models/songs';
 export class MySongsComponent implements OnInit {
   constructor(private userService: UsersService) { }
   songs : Song[] = [];
+  loading : boolean = true;
 
   ngOnInit(): void {
     this.userService.getSongs(localStorage.getItem('token')!).subscribe((data: any) => {
@@ -25,6 +26,7 @@ export class MySongsComponent implements OnInit {
           image: song.image
         }
       });
+      this.loading = false;
     }
     );
   }

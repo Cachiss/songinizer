@@ -3,7 +3,8 @@ export class Artist {
       public id: string,
       public name: string,
       public genre: string,
-      public image: string // Imagen del artista en formato Base64
+      public image: string ,// Imagen del artista en formato Base64
+      public id_user: string
     ) {}
   }
   

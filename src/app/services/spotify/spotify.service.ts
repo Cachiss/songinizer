@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -55,6 +56,17 @@ export class SpotifyService {
     )
   }
 
-
+  search(query:string, type: string) : Observable<any>{
+    const url = `https://api.spotify.com/v1/search?q=${query}&type=${type}`;
+    return this.getAccessToken().pipe(
+      switchMap((data) => {
+        const token = data.access_token;
+        const headers = new HttpHeaders({
+          Authorization: 'Bearer ' + token
+        });
+        return this.http.get(url, { headers });
+      })
+    )
+  }
   
 }

@@ -1,0 +1,23 @@
+<div class="container">
+    <div *ngIf="artists.length ===0 && !loading" class="flex flex-col items-center w-full">
+        <img src="https://cdni.iconscout.com/illustration/premium/thumb/empty-inbox-4790940-3989293.png" class="w-2/3">
+        <h2 class="text-gray-400 text-2xl">¡Parece que no hay elementos!</h2>
+    </div>
+    <div class="grid lg:grid-cols-3 gap-5 mt-4">
+        <div *ngFor="let artist of artists; let number=index;" class="flex flex-col justify-center-center gap-3">
+            <div class="max-w-[55%] flex items-center">
+                <img [src]="artist.image" alt="image">
+            </div>
+            <div class="w-[55%] flex justify-between p-1">
+                <div>
+                    <p class="font-bold">{{artist.name}}</p>
+                    <p class="italic text-neutral-500">{{artist.genre}}</p>
+                </div>
+    
+                <div class="flex justify-end items-center">
+                    <i class="bi bi-heart-fill cursor-pointer" (click)="deleteArtist(artist)" ></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
