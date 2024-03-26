@@ -1,0 +1,83 @@
+<div class="container mt-4">
+    <h1 class="text-2xl">Ayudanos a mejorar nuestro servicio</h1>
+
+    <form class="lg:w-1/2" [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+        <div class="flex mt-4 items-center">
+            <label for="name">
+                <i class="bi bi-person-fill mr-2 lg:text-4xl"></i>
+            </label>
+            <input type="text" name="name" id="name" class="p-2 rounded border-2 border-black shadow-sm lg:h-12 w-full" placeholder="Nombre" formControlName="name">
+
+
+        </div>
+
+        <!--  Nombre Validators -->
+        <div ngClass="block" *ngIf="isSubmitted" class="text-red-500">
+            <div *ngIf="feedbackForm.controls['name'].errors?.['required']">
+                <p class="text-red-500">El nombre es requerido</p>
+            </div>
+
+            <div *ngIf="feedbackForm.controls['name'].errors?.['minlength']">
+                <p class="text-red-500">El nombre debe tener al menos 3 caracteres</p>
+            </div>
+
+            <div *ngIf="feedbackForm.controls['name'].errors?.['pattern']">
+                <p class="text-red-500">Caracteres inválidos</p>
+            </div>
+        </div>
+
+        <div class="flex mt-4">
+            <label for="email">
+                <i class="bi bi-envelope-at-fill mr-2 lg:text-4xl"></i>
+            </label>
+            <input type="email" name="email" id="email" class="p-2 rounded border-2 border-black shadow-sm lg:h-12 w-full" placeholder="Email" formControlName="email">
+        </div>
+
+        <!--  Email Validators -->
+        <div ngClass="block" *ngIf="isSubmitted" class="text-red-500">
+            <div *ngIf="feedbackForm.controls['email'].errors?.['required']">
+                <p class="text-red-500">El email es requerido</p>
+            </div>
+
+            <div *ngIf="feedbackForm.controls['email'].errors?.['email']">
+                <p class="text-red-500">Email inválido</p>
+            </div>
+        </div>
+
+        <div class="flex mt-4">
+            <label for="date">
+                <i class="bi bi-calendar-date-fill mr-2 lg:text-4xl"></i>
+            </label>
+            <input type="date" name="date" id="date" class="p-2 rounded border-2 border-black shadow-sm lg:h-12 w-full" formControlName="date">
+        </div>
+
+        <!--  Date Validators -->
+        <div ngClass="block" *ngIf="isSubmitted" class="text-red-500">
+            <div *ngIf="feedbackForm.controls['date'].errors?.['required']">
+                <p class="text-red-500">La fecha es requerida</p>
+            </div>
+        </div>
+
+
+        <div class="flex flex-col mt-10">
+            <label for="message" class="text-lg">Escribe tu feedback para nosotros</label>
+            <textarea name="message" id="message" class="p-2 rounded border-2 border-black shadow-sm lg:h-24 w-full" placeholder="Escribe tu mensaje" formControlName="message"></textarea>
+        </div>
+
+        <!--  Message Validators -->
+        <div ngClass="block" *ngIf="isSubmitted" class="text-red-500">
+            <div *ngIf="feedbackForm.controls['message'].errors?.['required']">
+                <p class="text-red-500">El mensaje es requerido</p>
+            </div>
+
+            <div *ngIf="feedbackForm.controls['message'].errors?.['minlength']">
+                <p class="text-red-500">El mensaje debe tener al menos 10 caracteres</p>
+            </div>
+        </div>
+    <div class="flex justify-center">
+        <button class="bg-black text-white p-2 mt-4 w-1/2 m-auto" type="submit">Enviar</button>
+
+    </div>
+
+    </form>
+</div>

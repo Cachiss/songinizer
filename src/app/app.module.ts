@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // Importa los módulos de ngx-bootstrap
@@ -20,6 +20,7 @@ import { MySongsComponent } from './pages/my-songs/my-songs.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ArtistsComponent } from './pages/artists/artists.component';
 import { ResultSearchComponent } from './components/result-search/result-search.component';
+import { FeedbackComponent } from './pages/feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ResultSearchComponent } from './components/result-search/result-search.
     MySongsComponent,
     AboutUsComponent,
     ArtistsComponent,
-    ResultSearchComponent // Agrega el componente ArtistComponent a las declaraciones
+    ResultSearchComponent,
+    FeedbackComponent // Agrega el componente ArtistComponent a las declaraciones
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { ResultSearchComponent } from './components/result-search/result-search.
     BsDatepickerModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig), // Inicializa Firebase con la configuración
     AngularFireDatabaseModule, // Agrega el módulo de Firebase Database
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

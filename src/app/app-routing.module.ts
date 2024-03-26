@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { MySongsComponent } from './pages/my-songs/my-songs.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ArtistsComponent } from './pages/artists/artists.component';
+import { FeedbackComponent } from './pages/feedback/feedback.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,11 @@ const routes: Routes = [
   {
     path: 'my-songs',
     component: MySongsComponent
+  },
+  {
+    path: 'feedback',
+    component: FeedbackComponent
+  
   }
 
 ];
