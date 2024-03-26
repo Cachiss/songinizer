@@ -13,6 +13,7 @@ export class UsersService {
   private songsCollection: AngularFirestoreCollection<Song>;
   private genres: typeGenre[] = [];
   private artistsCollection: AngularFirestoreCollection<Artist>;
+  private feedbackCollection: AngularFirestoreCollection<any>;
 
   constructor(private firestore: AngularFirestore) {
     this.songsCollection = this.firestore.collection<Song>('songs');
@@ -26,6 +27,7 @@ export class UsersService {
       { id: 6, description: 'Clasica' }
     ];
     this.artistsCollection = this.firestore.collection<Artist>('artists');
+    this.feedbackCollection = this.firestore.collection<any>('feedback');
   }
 
   private addFavoriteLocalStorage(song: Song): void {
@@ -161,5 +163,13 @@ export class UsersService {
     this.deleteArtistLocalStorage(artistId);
     const artistDoc = this.artistsCollection.doc(artistId);
     return artistDoc.delete();
+  }
+
+  addFeedback(feedback: any): Promise<any> {
+    return this.feedbackCollection.add(feedback);
+  }
+
+  getFeedback(): Observable<any[]> {
+    return this.feedbackCollection.valueChanges({ idField: 'id' });
   }
 }

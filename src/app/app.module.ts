@@ -21,6 +21,8 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ArtistsComponent } from './pages/artists/artists.component';
 import { ResultSearchComponent } from './components/result-search/result-search.component';
 import { FeedbackComponent } from './pages/feedback/feedback.component';
+import { ExperiencesComponent } from './components/experiences/experiences.component';
+import { AlertModule, CarouselModule } from '@coreui/angular';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { FeedbackComponent } from './pages/feedback/feedback.component';
     AboutUsComponent,
     ArtistsComponent,
     ResultSearchComponent,
-    FeedbackComponent // Agrega el componente ArtistComponent a las declaraciones
+    FeedbackComponent,
+    ExperiencesComponent, // Agrega el componente ArtistComponent a las declaraciones
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,9 @@ import { FeedbackComponent } from './pages/feedback/feedback.component';
     AngularFireModule.initializeApp(environment.firebaseConfig), // Inicializa Firebase con la configuración
     AngularFireDatabaseModule, // Agrega el módulo de Firebase Database
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AlertModule,
+    CarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent]

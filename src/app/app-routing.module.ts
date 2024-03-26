@@ -29,7 +29,7 @@ const routes: Routes = [
     component: MySongsComponent
   },
   {
-    path: 'feedback',
+    path: 'experience-feedback',
     component: FeedbackComponent
   
   }

@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4 flex flex-col items-center">
     <h1 class="text-2xl">Ayudanos a mejorar nuestro servicio</h1>
 
     <form class="lg:w-1/2" [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
@@ -60,7 +60,7 @@
 
 
         <div class="flex flex-col mt-10">
-            <label for="message" class="text-lg">Escribe tu feedback para nosotros</label>
+            <label for="message" class="text-lg">Escribe tu experiencia en Songinizer</label>
             <textarea name="message" id="message" class="p-2 rounded border-2 border-black shadow-sm lg:h-24 w-full" placeholder="Escribe tu mensaje" formControlName="message"></textarea>
         </div>
 
@@ -75,7 +75,7 @@
             </div>
         </div>
     <div class="flex justify-center">
-        <button class="bg-black text-white p-2 mt-4 w-1/2 m-auto" type="submit">Enviar</button>
+        <button class="bg-black text-white p-2 mt-4 w-full m-auto" type="submit">Enviar</button>
 
     </div>
 

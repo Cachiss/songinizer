@@ -1,0 +1,31 @@
+<section class="mt-2">
+    <h2 class="text-2xl text-center  mt-8 lg:mt-20 lg:text-4xl font-bold">Experiencias</h2>
+    <div class="flex justify-center">
+        <hr class="my-8 w-2/3 "/>
+    </div>
+
+    <div class="py-20 items-center px-[10%]">
+        <c-carousel *ngIf="isLoaded" [interval]="5000" transition="slide">
+        <c-carousel-inner>
+          <c-carousel-item *ngFor="let slide of slides; let number=index">
+            <div class="w-full">
+                <div class="shadow-md p-4 lg:p-12 " [ngClass]="number % 2 == 0 ? 'bg-lime-50' : 'bg-violet-100'">
+                    <span class="text-6xl lg:text-8xl block">“</span>
+                    <p class="text-center text-2xl lg:text-4xl">{{slide.message}}</p>
+                    
+                    <span class="text-6xl lg:text-8xl block text-right">”</span>
+
+                    <div class="text-right italic text-gray-400 lg:text-lg mt-2">
+                        <p>-{{slide.name}}</p>
+                        <p>{{slide.date}}</p>
+                    </div>
+                </div>
+            </div>
+          </c-carousel-item>
+        </c-carousel-inner>
+        <c-carousel-control [routerLink] caption="Previous" direction="prev"></c-carousel-control>
+        <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
+      
+      </c-carousel>
+    </div>
+</section>
